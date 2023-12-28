@@ -1,0 +1,18 @@
+{
+  "name": "dev.magmamc.permissionmanager",
+  "displayName": "PermissionManager",
+  "version": "0.1.0",
+  "url": "https://github.com/MagmaMcNet/PermissionManager.git",
+  "unity": "2022.3",
+  "description": "",
+  "author": {
+    "name": "MagmaMc",
+    "email": "magma.mc@magma-mc.net",
+    "url": "https://vpm.magmamc.dev/"
+  },
+  "vpmDependencies": {
+    "com.vrchat.worlds": "^3.3.0"
+  },
+  "samples": [],
+  "legacyFolders": {}
+}
