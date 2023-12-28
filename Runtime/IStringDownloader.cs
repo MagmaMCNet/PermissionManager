@@ -11,8 +11,7 @@ public class IStringDownloader : UdonSharpBehaviour
     [Tooltip("Raw URL For Config It Is Recommended To Use GitHub.io To Host The Files")]
     [SerializeField] public VRCUrl DataUrl;
     [Tooltip("How Long It Will Wait To Send New Request To Download New Config From The Server")]
-    [Range(4, byte.MaxValue)]
-    [SerializeField] public byte DownloadDelay = 10;
+    [SerializeField] public virtual byte DownloadDelay { get; set; } = 10;
     [HideInInspector] public bool Ready = false;
 
     public override void OnStringLoadSuccess(IVRCStringDownload result)
@@ -46,48 +45,71 @@ public class IStringDownloader : UdonSharpBehaviour
 }
 public static class Extensions
 {
-    public static bool ArrayContains(string[] array, string value, bool CaptialSensitve = true, bool WeakCheck = false)
+    /// <summary>
+    /// Checks if the array contains a specified string value.
+    /// </summary>
+    /// <param name="array">The array of strings to search.</param>
+    /// <param name="value">The string value to search for.</param>
+    /// <param name="capitalSensitive">Indicates whether the search is case-sensitive. Default is true.</param>
+    /// <param name="weakCheck">Indicates whether to perform a weak (substring) check instead of an exact match. Default is false.</param>
+    /// <returns>True if the array contains the specified value; otherwise, false.</returns>
+    public static bool ArrayContains(this string[] array, string value, bool capitalSensitive = true, bool weakCheck = false)
     {
-        if (!CaptialSensitve)
+        if (!capitalSensitive)
             value = value.ToLower();
+
         foreach (string item in array)
         {
-            string Item = !CaptialSensitve ? item.ToLower() : item;
-            if (WeakCheck)
+            string itemToCheck = !capitalSensitive ? item.ToLower() : item;
+
+            if (weakCheck)
             {
-                if (Item.Contains(value))
+                if (itemToCheck.Contains(value))
                     return true;
             }
             else
             {
-                if (Item == value)
+                if (itemToCheck == value)
                     return true;
             }
         }
         return false;
     }
-    public static T[] Resize<T>(this T[] array, int newSize)
+
+    /// <summary>
+    /// Resizes the array to the specified size.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="array">The array to resize.</param>
+    /// <param name="newSize">The new size of the array.</param>
+    /// <returns>The resized array.</returns>
+    public static T[] Resize<T>(ref T[] array, int newSize)
     {
         if (array.Length != newSize)
         {
             T[] newArray = new T[newSize];
-            Array.Copy(array, 0, newArray, 0, (array.Length > newSize) ? newSize : array.Length);
-            return newArray;
+            Array.Copy(array, newArray, Math.Min(array.Length, newSize));
+            array = newArray;
         }
         return array;
     }
-    public static bool ContainsAny<T>(this T[] sourceArray, T[] targetArray)
+
+    /// <summary>
+    /// Checks if any elements in the source array are present in the target array.
+    /// </summary>
+    public static bool ContainsAny<T>(ref T[] sourceArray, T[] targetArray)
     {
         foreach (T item in sourceArray)
-        {
             if (Array.IndexOf(targetArray, item) != -1)
-            {
                 return true;
-            }
-        }
+
         return false;
     }
-    public static T[] RemoveDuplicates<T>(this T[] array)
+
+    /// <summary>
+    /// Removes duplicate elements from the array.
+    /// </summary>
+    public static T[] RemoveDuplicates<T>(ref T[] array)
     {
         int uniqueCount = 0;
 
@@ -117,68 +139,59 @@ public static class Extensions
 
         return result;
     }
-    public static T[] Add<T>(this T[] array, params T[] items)
+
+    /// <summary>
+    /// Adds the specified items to the array.
+    /// </summary>
+    public static T[] Add<T>(ref T[] array, params T[] items)
     {
         T[] newArray = new T[array.Length + items.Length];
         Array.Copy(array, newArray, array.Length);
+
         for (int i = 0; i < items.Length; i++)
             newArray[array.Length + i] = items[i];
+
         return newArray;
     }
 
-    public static string[] ToLower(this string[] array)
+    /// <summary>
+    /// Converts all string elements in the array to lowercase.
+    /// </summary>
+    public static string[] ToLower(ref string[] array)
     {
         string[] newArray = new string[array.Length];
-        System.Array.Copy(array, newArray, array.Length);
+        Array.Copy(array, newArray, array.Length);
+
         for (int i = 0; i < newArray.Length; i++)
             newArray[i] = newArray[i].ToLower();
+
         return newArray;
     }
-    public static string[] ToUpper(this string[] array)
+
+    /// <summary>
+    /// Converts all string elements in the array to uppercase.
+    /// </summary>
+    public static string[] ToUpper(ref string[] array)
     {
         string[] newArray = new string[array.Length];
-        System.Array.Copy(array, newArray, array.Length);
+        Array.Copy(array, newArray, array.Length);
+
         for (int i = 0; i < newArray.Length; i++)
             newArray[i] = newArray[i].ToUpper();
+
+        array = newArray;
         return newArray;
     }
+
+    /// <summary>
+    /// Checks if the array contains the specified value.
+    /// </summary>
     public static bool Contains<T>(this T[] array, T value)
     {
         foreach (T item in array)
             if (item.Equals(value))
                 return true;
+
         return false;
-    }
-
-    /// <summary>
-    /// Get Value Of Key From "Magma's Array Config Format"
-    /// </summary>
-    /// <param name="Key">The String Name Of The Variable Name To Locate Eg</param>
-    /// <returns></returns>
-    [Obsolete("Please Use The 2.0.0 MPC Format As The 1.0.0 MACF Format Has Been Deprecated", true)]
-    public static string[] GetFromKey(this string data, string Key)
-    {
-        string[] ConfigData = data.Split('\n');
-        string[] ReturnValue = new string[0];
-        int StartIndex = 0;
-        for (int i = 0; i < ConfigData.Length; i++)
-        {
-            if (ConfigData[i].Contains("--" + Key + "--"))
-            {
-                StartIndex = i + 1;
-                break;
-            }
-        }
-        for (int i = StartIndex; i < ConfigData.Length; i++)
-        {
-            if (ConfigData[i].StartsWith("--") || ConfigData[i].EndsWith("--"))
-                break;
-            if (!string.IsNullOrWhiteSpace(ConfigData[i]))
-            {
-                ReturnValue = ReturnValue.Add(ConfigData[i].Trim());
-            }
-
-        }
-        return ReturnValue;
     }
 }

@@ -1,3 +1,2 @@
-# MagmaMc.AdminUtil
+# PermissionManager
 
-A Administration Framework For Vrchat Worlds.
