@@ -12,20 +12,21 @@ public class IStringDownloader : UdonSharpBehaviour
     [SerializeField] public VRCUrl DataUrl;
     [Tooltip("How Long It Will Wait To Send New Request To Download New Config From The Server")]
     [SerializeField] public virtual byte DownloadDelay { get; set; } = 10;
+    [Tooltip("Field for if the download will Start Again After Download Has Successfully Finished")]
+    [SerializeField] public virtual bool LoopDownload { get; set; } = true;
     [HideInInspector] public bool Ready = false;
 
     public override void OnStringLoadSuccess(IVRCStringDownload result)
     {
         Ready = true;
         OnStringDownloaded(result.Result);
-        VRCStringDownloader.LoadUrl(DataUrl, (IUdonEventReceiver)this);
+        StartDownload();
     }
-    public override void OnStringLoadError(IVRCStringDownload result) =>
-        VRCStringDownloader.LoadUrl(DataUrl, (IUdonEventReceiver)this);
+    public override void OnStringLoadError(IVRCStringDownload result) => StartDownload();
 
     public void Start()
     {
-        VRCStringDownloader.LoadUrl(DataUrl, (IUdonEventReceiver)this);
+        StartDownload();
         OnStart();
     }
 
@@ -42,9 +43,21 @@ public class IStringDownloader : UdonSharpBehaviour
     {
         Debug.Log(Data, this);
     }
+
+    public bool StartDownload()
+    {
+        if (Ready && !LoopDownload)
+            return false;
+
+        VRCStringDownloader.LoadUrl(DataUrl, (IUdonEventReceiver)this);
+        return true;
+    }
+
 }
-public static class Extensions
+public static class ArrayExtensions
 {
+    private static int[] NumbArray { get; } = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+
     /// <summary>
     /// Checks if the array contains a specified string value.
     /// </summary>
@@ -97,7 +110,7 @@ public static class Extensions
     /// <summary>
     /// Checks if any elements in the source array are present in the target array.
     /// </summary>
-    public static bool ContainsAny<T>(ref T[] sourceArray, T[] targetArray)
+    public static bool ContainsAny<T>(this T[] sourceArray, params T[] targetArray)
     {
         foreach (T item in sourceArray)
             if (Array.IndexOf(targetArray, item) != -1)
@@ -107,13 +120,33 @@ public static class Extensions
     }
 
     /// <summary>
+    /// Checks if the string contains any of the specified characters.
+    /// </summary>
+    public static bool ContainsAny(this string str, params string[] characters)
+    {
+        foreach (string c in characters)
+            if (str.Contains(c))
+                return true;
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if the string contains any of the specified characters.
+    /// </summary>
+    public static bool ContainsNumb(this string str)
+    {
+        foreach (int c in NumbArray)
+            if (str.Contains(c.ToString()))
+                return true;
+        return false;
+    }
+    /// <summary>
     /// Removes duplicate elements from the array.
     /// </summary>
     public static T[] RemoveDuplicates<T>(ref T[] array)
     {
         int uniqueCount = 0;
 
-        // Count unique elements
         for (int i = 0; i < array.Length; i++)
         {
             bool isUnique = true;
@@ -157,7 +190,7 @@ public static class Extensions
     /// <summary>
     /// Converts all string elements in the array to lowercase.
     /// </summary>
-    public static string[] ToLower(ref string[] array)
+    public static string[] ToLower(this string[] array)
     {
         string[] newArray = new string[array.Length];
         Array.Copy(array, newArray, array.Length);
@@ -171,7 +204,7 @@ public static class Extensions
     /// <summary>
     /// Converts all string elements in the array to uppercase.
     /// </summary>
-    public static string[] ToUpper(ref string[] array)
+    public static string[] ToUpper(this string[] array)
     {
         string[] newArray = new string[array.Length];
         Array.Copy(array, newArray, array.Length);
