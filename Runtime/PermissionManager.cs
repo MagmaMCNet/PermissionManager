@@ -1,126 +1,155 @@
 ﻿using System;
+using System.Reflection;
 using UdonSharp;
 using UnityEngine;
+using VRC.Udon;
 
-[UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
-public class PermissionManager : IStringDownloader
+namespace PermissionSystem
 {
-    public string[] Players;
-    public string[] Players_Permissions;
-    
-    public string[] Groups;
-    public string[] Groups_Permissions;
-
-
-    private string RawData = "";
-
-    public override void OnAwake()
+    [UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
+    public class PermissionManager: IStringDownloader
     {
-        DownloadDelay = 30;
-        LoopDownload = true;
-    }
+        [HideInInspector] public string[] Players;
+        [HideInInspector] public string[] Players_Permissions;
 
+        [HideInInspector] public string[] Groups;
+        [HideInInspector] public string[] Groups_Permissions;
 
-    public override void OnStringDownloaded(string Data)
-    {
-        RawData = Data;
-        GetPermissions();
-    }
+        public UdonSharpBehaviour[] Events;
 
-    /*
-    public string[] GetGroups()
-    {
+        private string RawData = "";
 
-    }
-
-    public string[] GetGroup_Permissions(string Group) { }
-    public string[] GetGroup_Players(string Group) { }
-    */
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns>{ "Player1": {"Permission1+Permission2"}, "Player2": {"Permission1+Permission2"}  }</returns>
-    public void GetPermissions()
-    {
-
-        bool InGroup = false;
-        string CurrentGroup = "";
-        string[] Current_Groups_Permissions = new string[0];
-
-        foreach (string line in TrimData(RawData))
+        public override void OnAwake()
         {
-            if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//")) continue;
-            
-            if (IsGroup(line))
+            DownloadDelay = 30;
+            LoopDownload = true;
+        }
+
+
+        public override void OnStringDownloaded(string Data)
+        {
+            RawData = Data;
+            GetPermissions();
+            foreach (var Behaviour in Events)
+                Behaviour.SendCustomEvent("OnDataUpdated");
+        }
+
+        public bool AddEventListener(UdonSharpBehaviour Behaviour)
+        {
+            if (Array.IndexOf(Events, Behaviour) == -1)
             {
-                InGroup = true;
-                CurrentGroup = GetGroupName(line);
-                Groups = Groups.Add(CurrentGroup);
-
-                Current_Groups_Permissions = GetGroupPermissions(line);
-                Groups_Permissions = Groups_Permissions.Add(Current_Groups_Permissions.Join('+'));
-
-                continue;
+                Events = Events.Add(Behaviour);
+                return true;
             }
+            return false;
+        }
 
-            if (!InGroup)
-                continue;
+        public bool RemoveEventListener(UdonSharpBehaviour Behaviour)
+        {
+            int index = Array.IndexOf(Events, Behaviour);
 
-            string PlayerName = line.ToLower();
-            string[] PlayerPermissions = Current_Groups_Permissions;
-            int index = Array.IndexOf(Players, PlayerName);
             if (index != -1)
             {
-                PlayerPermissions = PlayerPermissions.Add(Players_Permissions[index].Split('+'));
-                Players_Permissions[index] = PlayerPermissions.Join('+');
+                Events = Events.RemoveAt(index);
+                return true;
             }
-            else
+            return false;
+        }
+
+
+        /*
+        public string[] GetGroups()
+        {
+
+        }
+
+        public string[] GetGroup_Permissions(string Group) { }
+        public string[] GetGroup_Players(string Group) { }
+        */
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>{ "Player1": {"Permission1+Permission2"}, "Player2": {"Permission1+Permission2"}  }</returns>
+        public void GetPermissions()
+        {
+
+            bool InGroup = false;
+            string[] Current_Groups_Permissions = new string[0];
+
+            foreach (string line in TrimData(RawData))
             {
-                Players = Players.Add(PlayerName);
-                Players_Permissions = Players_Permissions.Add(PlayerPermissions.Join('+'));
+                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//")) continue;
+
+                if (IsGroup(line))
+                {
+                    InGroup = true;
+                    Groups = Groups.Add(GetGroupName(line));
+
+                    Current_Groups_Permissions = GetGroupPermissions(line);
+                    Groups_Permissions = Groups_Permissions.Add(Current_Groups_Permissions.Join('+'));
+
+                    continue;
+                }
+
+                if (!InGroup)
+                    continue;
+
+                string PlayerName = line.ToLower();
+                string[] PlayerPermissions = Current_Groups_Permissions;
+                int index = Array.IndexOf(Players, PlayerName);
+                if (index != -1)
+                {
+                    PlayerPermissions = PlayerPermissions.Add(Players_Permissions[index].Split('+'));
+                    Players_Permissions[index] = PlayerPermissions.Join('+');
+                }
+                else
+                {
+                    Players = Players.Add(PlayerName);
+                    Players_Permissions = Players_Permissions.Add(PlayerPermissions.Join('+'));
+                }
             }
+
         }
 
-    }
+        public bool IsGroup(string RawLine) => RawLine.StartsWith(">>") && RawLine.ContainsNumb();
 
-    public bool IsGroup(string RawLine) => RawLine.StartsWith(">>") && RawLine.ContainsNumb();
-
-    public string GetGroupName(string rawLine)
-    {
-        int startIdx = rawLine.IndexOf(">> ") + 3;
-        int endIdx = rawLine.IndexOf(" >");
-
-        if (startIdx != -1 && endIdx != -1 && startIdx < endIdx)
+        public string GetGroupName(string rawLine)
         {
-            return rawLine.Substring(startIdx, endIdx - startIdx);
+            int startIdx = rawLine.IndexOf(">> ") + 3;
+            int endIdx = rawLine.IndexOf(" >");
+
+            if (startIdx != -1 && endIdx != -1 && startIdx < endIdx)
+            {
+                return rawLine.Substring(startIdx, endIdx - startIdx);
+            }
+
+            return null;
         }
 
-        return null;
-    }
-
-    public string[] GetGroupPermissions(string rawLine)
-    {
-        int startIdx = rawLine.IndexOf(" > ") + 3;
-
-        if (startIdx != -1 && startIdx < rawLine.Length)
+        public string[] GetGroupPermissions(string rawLine)
         {
-            string permissionsSubstring = rawLine.Substring(startIdx);
-            return permissionsSubstring.Split('+');
+            int startIdx = rawLine.IndexOf(" > ") + 3;
+
+            if (startIdx != -1 && startIdx < rawLine.Length)
+            {
+                string permissionsSubstring = rawLine.Substring(startIdx);
+                return permissionsSubstring.Split('+');
+            }
+
+            return null;
         }
 
-        return null;
+
+        public string[] TrimData(string Raw)
+        {
+            string[] _strings = Raw.Split('\n');
+
+            for (int i = 0; i < _strings.Length; i++)
+                _strings[i] = _strings[i].Trim();
+
+            return _strings;
+        }
+
     }
-
-
-    public string[] TrimData(string Raw)
-    {
-        string[] _strings = Raw.Split('\n');
-
-        for (int i = 0; i < _strings.Length; i++)
-            _strings[i] = _strings[i].Trim();
-
-        return _strings;
-    }
-
 }
