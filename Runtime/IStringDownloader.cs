@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.StringLoading;
@@ -11,29 +12,32 @@ public class IStringDownloader : UdonSharpBehaviour
     [Tooltip("Raw URL For Config It Is Recommended To Use GitHub.io To Host The Files")]
     [SerializeField] public VRCUrl DataUrl;
     [Tooltip("How Long It Will Wait To Send New Request To Download New Config From The Server")]
-    [SerializeField] public virtual byte DownloadDelay { get; set; } = 10;
+    [SerializeField] public byte DownloadDelay  = 10;
     [Tooltip("Field for if the download will Start Again After Download Has Successfully Finished")]
-    [SerializeField] public virtual bool LoopDownload { get; set; } = true;
+    [SerializeField] public bool LoopDownload = true;
     [HideInInspector] public bool Ready = false;
 
     public override void OnStringLoadSuccess(IVRCStringDownload result)
     {
         Ready = true;
         OnStringDownloaded(result.Result);
-        StartDownload();
+        SendCustomEventDelayedSeconds(nameof(StartDownload), DownloadDelay);
     }
+    
     public override void OnStringLoadError(IVRCStringDownload result) => StartDownload();
+
 
     public void Start()
     {
+        OnAwake();
         StartDownload();
         OnStart();
     }
 
 
-    public virtual void OnStart()
-    {
-    }
+    public virtual void OnAwake() { }
+
+    public virtual void OnStart() { }
 
     /// <summary>
     /// Function is called when the config string has finished downloading
@@ -56,7 +60,36 @@ public class IStringDownloader : UdonSharpBehaviour
 }
 public static class ArrayExtensions
 {
-    private static int[] NumbArray { get; } = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+
+    /// <summary>
+    /// Concatenates the elements of a string array into a single string using the specified separator.
+    /// </summary>
+    /// <param name="array">The array of strings to join.</param>
+    /// <param name="separator">The string to use as a separator between the elements. It can be an empty string or null.</param>
+    /// <returns>A single string that consists of the elements of the array separated by the specified separator.</returns>
+    public static string Join(this string[] array, string separator)
+    {
+        if (array == null || array.Length == 0)
+            return "";
+
+        string result = array[0];
+
+        for (int i = 1; i < array.Length; i++)
+        {
+            result += separator + array[i];
+        }
+
+        return result;
+    }
+
+
+    /// <summary>
+    /// Concatenates the elements of a string array into a single string using the specified separator.
+    /// </summary>
+    /// <param name="array">The array of strings to join.</param>
+    /// <param name="separator">The character to use as a separator between the elements. It can be an empty string or null.</param>
+    /// <returns>A single string that consists of the elements of the array separated by the specified separator.</returns>
+    public static string Join(this string[] array, char separator) => Join(array, separator.ToString());
 
     /// <summary>
     /// Checks if the array contains a specified string value.
@@ -135,15 +168,16 @@ public static class ArrayExtensions
     /// </summary>
     public static bool ContainsNumb(this string str)
     {
-        foreach (int c in NumbArray)
+        foreach (int c in new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 })
             if (str.Contains(c.ToString()))
                 return true;
         return false;
     }
+
     /// <summary>
     /// Removes duplicate elements from the array.
     /// </summary>
-    public static T[] RemoveDuplicates<T>(ref T[] array)
+    public static T[] RemoveDuplicates<T>(this T[] array)
     {
         int uniqueCount = 0;
 
@@ -176,7 +210,7 @@ public static class ArrayExtensions
     /// <summary>
     /// Adds the specified items to the array.
     /// </summary>
-    public static T[] Add<T>(ref T[] array, params T[] items)
+    public static T[] Add<T>(this T[] array, params T[] items)
     {
         T[] newArray = new T[array.Length + items.Length];
         Array.Copy(array, newArray, array.Length);
@@ -184,6 +218,17 @@ public static class ArrayExtensions
         for (int i = 0; i < items.Length; i++)
             newArray[array.Length + i] = items[i];
 
+        return newArray;
+    }
+
+    /// <summary>
+    /// Adds the specified item to the array.
+    /// </summary>
+    public static T[] Add<T>(this T[] array, T item)
+    {
+        T[] newArray = new T[array.Length + 1];
+        Array.Copy(array, newArray, array.Length);
+        newArray[array.Length] = item;
         return newArray;
     }
 
