@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using PM = PermissionSystem.PermissionManager;
+using UnityEditor.Build;
 [CustomEditor(typeof(PM))]
 public class PermissionManagerEditor : Editor
 {

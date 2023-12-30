@@ -1,11 +1,12 @@
 using PermissionSystem;
 using UnityEditor;
 using UnityEngine;
-[CustomEditor(typeof(PermissiveObject))]
-public class PermissiveObjectEditor : Editor
+[CustomEditor(typeof(PermissiveCollider))]
+public class PermissiveColliderEditor : Editor
 {
+
     SerializedProperty _PermissionManager;
-    SerializedProperty GameObjects;
+    SerializedProperty Colliders;
     SerializedProperty Destructive;
     SerializedProperty LoopCheck;
     SerializedProperty Reverse;
@@ -16,7 +17,7 @@ public class PermissiveObjectEditor : Editor
     public void OnEnable()
     {
         _PermissionManager = serializedObject.FindProperty("PermissionManager");
-        GameObjects = serializedObject.FindProperty("GameObjects");
+        Colliders = serializedObject.FindProperty("Colliders");
         Destructive = serializedObject.FindProperty("Destructive");
         LoopCheck = serializedObject.FindProperty("LoopCheck");
         Reverse = serializedObject.FindProperty("Reverse");
@@ -38,18 +39,18 @@ public class PermissiveObjectEditor : Editor
             serializedObject.ApplyModifiedProperties();
             return;
         }
-
+        
 
         GUILayout.BeginHorizontal(MainHeader);
         GUILayout.FlexibleSpace();
-        GUILayout.Label("PermissiveObject", MainHeader);
+        GUILayout.Label("PermissiveCollider", MainHeader);
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         EditorGUILayout.Space(15);
         EditorGUILayout.PropertyField(_PermissionManager);
         EditorGUILayout.Space(5);
 
-        EditorGUILayout.PropertyField(GameObjects);
+        EditorGUILayout.PropertyField(Colliders);
         EditorGUILayout.PropertyField(Destructive);
         if (!Destructive.boolValue)
             EditorGUILayout.PropertyField(LoopCheck);

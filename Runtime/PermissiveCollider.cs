@@ -3,13 +3,11 @@ using UdonSharp;
 using UnityEngine;
 
 [UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
-public class PermissiveObject : PermissionManagerRef
+public class PermissiveCollider: PermissionManagerRef
 {
     [Space(5)]
-    [InspectorName("GameObjects")]
-    [Tooltip("leave empty for self")]
-    public GameObject[] GameObjects;
-    [Tooltip("If the GameObject will get deleted")]
+    public Collider[] Colliders;
+    [Tooltip("If the Colliders will get deleted")]
     public bool Destructive = false;
     [Tooltip("If It Will Check Every Time The ")]
     public bool LoopCheck = false;
@@ -19,8 +17,6 @@ public class PermissiveObject : PermissionManagerRef
     public string[] AuthorizedPermissions = new string[0];
     public override void OnAwake()
     {
-        if (GameObjects.Length == 0)
-            GameObjects = new GameObject[1] { gameObject };
         if (Destructive)
             LoopCheck = false;
         if (LoopCheck)
@@ -36,12 +32,12 @@ public class PermissiveObject : PermissionManagerRef
         if (Destructive)
         {
             if (Permission)
-                foreach(var obj in GameObjects)
-                    Destroy(obj);
+                foreach (var item in Colliders)
+                    Destroy(item);
         }
         else
-            foreach (var obj in GameObjects)
-                obj.SetActive(Permission);
+            foreach (var item in Colliders)
+                item.enabled = Permission;
 
     }
 
@@ -50,8 +46,8 @@ public class PermissiveObject : PermissionManagerRef
         bool Permission = HasPermissions(AuthorizedPermissions);
         if (Reverse)
             Permission = !Permission;
-        foreach (var obj in GameObjects)
-            obj.SetActive(Permission);
+        foreach (var item in Colliders)
+            item.enabled = Permission;
     }
 
 }
