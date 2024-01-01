@@ -1,7 +1,7 @@
 {
   "name": "dev.magmamc.permissionmanager",
   "displayName": "PermissionManager",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "url": "https://github.com/MagmaMcNet/PermissionManager.git",
   "unity": "2022.3",
   "description": "",
