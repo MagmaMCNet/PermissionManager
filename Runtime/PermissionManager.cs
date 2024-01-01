@@ -200,6 +200,12 @@ namespace PermissionSystem
 
             return _strings;
         }
+#if UNITY_EDITOR
+        public void OnDrawGizmos()
+        {
 
+            Gizmos.DrawIcon(transform.position, "..\\..\\Packages\\dev.magmamc.permissionmanager\\Gizmos\\ManagerIcon.tiff", true);
+        }
+#endif
     }
 }

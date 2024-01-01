@@ -32,6 +32,9 @@ public class PermissionManagerEditor : Editor
             return;
         if (Self.transform.parent != null)
             return;
+        if (!AssetDatabase.IsValidFolder("Assets/Gizmos"))
+            return;
+
         issetup = true;
     }
 
@@ -100,7 +103,13 @@ public class PermissionManagerEditor : Editor
                 gameObject.name = "PermissionSystem";
                 gameObject.tag = "PermissionSystem";
                 gameObject.layer = 0;
-                
+
+                string folderPath = "Assets/Gizmos";
+
+                if (!AssetDatabase.IsValidFolder(folderPath))
+                {
+                    AssetDatabase.CreateFolder("Assets", "Gizmos");
+                }
                 issetup = true;
             }
         }
