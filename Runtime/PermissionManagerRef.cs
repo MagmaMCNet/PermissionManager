@@ -1,6 +1,7 @@
 ﻿using System;
 using UdonSharp;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VRC.SDKBase;
 using VRC.Udon;
 
@@ -89,11 +90,6 @@ namespace PermissionSystem
             if (PermissionManager != null)
                 return;
 
-            PermissionManager = (GameObject.Find("Permissions") ?? gameObject).GetComponent<PermissionManager>();
-            if (PermissionManager != null)
-                return;
-
-            PermissionManager = (GameObject.Find("VRC") ?? gameObject).GetComponent<PermissionManager>();
             if (PermissionManager != null)
                 return;
 

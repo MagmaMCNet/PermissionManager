@@ -64,8 +64,10 @@ public class PermissiveEventsEditor : Editor
         GUILayout.Space(10);
         EditorGUILayout.PropertyField(_PermissionManager);
 
+        bool a = false;
+        EditorUtilities.DrawEventReceiverArray(AuthorizedReceivers, AuthorizedEvents, "Authorized", ref a);
 
-        EditorUtilities.DrawEventReceiverArray(AuthorizedReceivers, AuthorizedEvents, "Authorized", DeniedReceivers, DeniedEvents, "Denied");
+        EditorUtilities.DrawEventReceiverArray(DeniedReceivers, DeniedEvents, "Denied", ref a);
 
         GUILayout.Space(10);
         EditorGUILayout.PropertyField(LoopCheck);

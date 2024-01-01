@@ -15,6 +15,8 @@ namespace PermissionSystem
         [HideInInspector] public string[] Groups;
         [HideInInspector] public string[] Groups_Permissions;
 
+        [HideInInspector] public GameObject _Editor_Self;
+
         public UdonSharpBehaviour[] Events;
 
         private string RawData = "";
@@ -57,15 +59,63 @@ namespace PermissionSystem
         }
 
 
-        /*
+        
         public string[] GetGroups()
         {
+            string[] Groups = new string[0];
+            foreach (string line in TrimData(RawData))
+            {
+                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//")) continue;
 
+                if (IsGroup(line))
+                    Groups = Groups.Add(GetGroupName(line));
+                else
+                    continue;
+            }
+            return Groups;
         }
 
-        public string[] GetGroup_Permissions(string Group) { }
-        public string[] GetGroup_Players(string Group) { }
-        */
+        public string[] GetGroup_Permissions(string Group)
+        {
+            foreach (string line in TrimData(RawData))
+            {
+                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//")) continue;
+
+                if (IsGroup(line))
+                    if (GetGroupName(line).ToLower() == Group.ToLower())
+                        return GetGroupPermissions(line);
+                
+                else
+                    continue;
+            }
+            return null;
+
+        }
+        public string[] GetGroup_Players(string Group)
+        {
+            bool InGroup = false;
+            string[] Players = new string[0];
+            foreach (string line in TrimData(RawData))
+            {
+                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("//")) continue;
+
+                if (IsGroup(line))
+                {
+                    if (GetGroupName(line).ToLower() == Group.ToLower())
+                        InGroup = true;
+                    else
+                        InGroup = false;
+                    continue;
+                }
+
+                if (!InGroup)
+                    continue;
+
+                Players = Players.Add(line.ToLower());
+            }
+            return Players;
+        }
+        
 
         /// <summary>
         /// 
