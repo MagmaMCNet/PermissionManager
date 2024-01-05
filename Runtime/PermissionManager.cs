@@ -59,7 +59,7 @@ namespace PermissionSystem
         }
 
 
-        
+
         public string[] GetGroups()
         {
             string[] Groups = new string[0];
@@ -84,9 +84,9 @@ namespace PermissionSystem
                 if (IsGroup(line))
                     if (GetGroupName(line).ToLower() == Group.ToLower())
                         return GetGroupPermissions(line);
-                
-                else
-                    continue;
+
+                    else
+                        continue;
             }
             return null;
 
@@ -115,7 +115,7 @@ namespace PermissionSystem
             }
             return Players;
         }
-        
+
 
         /// <summary>
         /// 
@@ -162,7 +162,7 @@ namespace PermissionSystem
 
         }
 
-        public bool IsGroup(string RawLine) => RawLine.StartsWith(">>") && RawLine.ContainsNumb();
+        public bool IsGroup(string RawLine) => RawLine.StartsWith(">>");
 
         public string GetGroupName(string rawLine)
         {
