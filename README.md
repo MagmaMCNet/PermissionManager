@@ -1,5 +1,9 @@
 # PermissionManager
 
+## Integrations
+
+* EasyButton From [MagmaMc.Utils](https://vpm.magmamc.dev)
+
 ## Guide To Setup
 
 1. Create An Empty GameObject
