@@ -147,7 +147,7 @@ namespace PermissionSystem
         /// </summary>
         public static bool ContainsAny<T>(this T[] sourceArray, params T[] targetArray)
         {
-            foreach (T item in sourceArray)
+            foreach (T item in targetArray)
                 if (Array.IndexOf(sourceArray, item) != -1)
                     return true;
 
