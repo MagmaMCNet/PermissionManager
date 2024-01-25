@@ -1,11 +1,9 @@
 using PermissionSystem;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using PM = PermissionSystem.PermissionManager;
-using UnityEditor.Build;
 using UnityEditorInternal;
 [CustomEditor(typeof(PM))]
 public class PermissionManagerEditor : Editor
@@ -81,7 +79,7 @@ public class PermissionManagerEditor : Editor
 #if MAGMAMC_PERMISSIONMANAGER
         GUILayout.BeginHorizontal(MainHeader);
         GUILayout.FlexibleSpace();
-        GUILayout.Label("PermissionManager - V1.0.0", MainHeader);
+        GUILayout.Label("PermissionManager - V1.1.0", MainHeader);
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         EditorGUILayout.Space(15);

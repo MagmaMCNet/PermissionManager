@@ -25,20 +25,21 @@ public class PermissiveCollider: PermissionManagerRef
 
     public override void OnReady()
     {
-
         bool Permission = HasPermissions(AuthorizedPermissions);
         if (Reverse)
             Permission = !Permission;
         if (Destructive)
         {
             if (Permission)
-                foreach (var item in Colliders)
-                    Destroy(item);
+            {
+                foreach (var obj in Colliders)
+                    Destroy(obj);
+                Destroy(this);
+            }
         }
         else
             foreach (var item in Colliders)
                 item.enabled = Permission;
-
     }
 
     public override void OnDataUpdated()

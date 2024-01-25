@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Reflection;
 using UdonSharp;
 using UnityEngine;
-using VRC.Udon;
 
 namespace PermissionSystem
 {

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Text;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
-using VRC.Udon;
 using VRC.Udon.Common.Interfaces;
 
 namespace PermissionSystem

@@ -1,23 +1,15 @@
-using MagmaMc.Utils;
 using PermissionSystem;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
-[CustomEditor(typeof(PermissiveEvents))]
-public class PermissiveEventsEditor : Editor
+[CustomEditor(typeof(PermissivePickup))]
+public class PermissivePickupEditor : Editor
 {
     SerializedProperty _PermissionManager;
-
-    SerializedProperty AuthorizedReceivers;
-    SerializedProperty AuthorizedEvents;
-    SerializedProperty DeniedReceivers;
-    SerializedProperty DeniedEvents;
-
+    SerializedProperty Items;
+    SerializedProperty Destructive;
     SerializedProperty LoopCheck;
-
-    SerializedProperty Networked;
-    SerializedProperty Targets;
-
+    SerializedProperty Reverse;
     SerializedProperty AuthorizedPermissions;
 
     GUIStyle MainHeader;
@@ -25,18 +17,10 @@ public class PermissiveEventsEditor : Editor
     public void OnEnable()
     {
         _PermissionManager = serializedObject.FindProperty("PermissionManager");
-
-        AuthorizedReceivers = serializedObject.FindProperty("AuthorizedReceivers");
-        AuthorizedEvents = serializedObject.FindProperty("AuthorizedEvents");
-
-        DeniedReceivers = serializedObject.FindProperty("DeniedReceivers");
-        DeniedEvents = serializedObject.FindProperty("DeniedEvents");
-
+        Items = serializedObject.FindProperty("Items");
+        Destructive = serializedObject.FindProperty("Destructive");
         LoopCheck = serializedObject.FindProperty("LoopCheck");
-
-        Networked = serializedObject.FindProperty("Networked");
-        Targets = serializedObject.FindProperty("Targets");
-
+        Reverse = serializedObject.FindProperty("Reverse");
         AuthorizedPermissions = serializedObject.FindProperty("AuthorizedPermissions");   
     }
 
@@ -56,26 +40,20 @@ public class PermissiveEventsEditor : Editor
             return;
         }
 
-
         GUILayout.BeginHorizontal(MainHeader);
         GUILayout.FlexibleSpace();
-        GUILayout.Label("PermissiveEvents", MainHeader);
+        GUILayout.Label("PermissiveObject", MainHeader);
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
-        GUILayout.Space(10);
+        EditorGUILayout.Space(15);
         EditorGUILayout.PropertyField(_PermissionManager);
+        EditorGUILayout.Space(5);
 
-        bool a = false;
-        EditorUtilities.DrawDoubleList(AuthorizedReceivers, AuthorizedEvents, "Authorized", ref a);
-
-        EditorUtilities.DrawDoubleList(DeniedReceivers, DeniedEvents, "Denied", ref a);
-
-        GUILayout.Space(10);
+        EditorGUILayout.PropertyField(Items);
+        EditorGUILayout.PropertyField(Destructive);
         EditorGUILayout.PropertyField(LoopCheck);
-        EditorGUILayout.PropertyField(Networked);
-        if (Networked.boolValue)
-            EditorGUILayout.PropertyField(Targets);
 
+        EditorGUILayout.PropertyField(Reverse);
         EditorGUILayout.PropertyField(AuthorizedPermissions, true);
 
         serializedObject.ApplyModifiedProperties();

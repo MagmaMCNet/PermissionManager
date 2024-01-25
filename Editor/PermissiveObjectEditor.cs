@@ -1,6 +1,7 @@
 using PermissionSystem;
 using UnityEditor;
 using UnityEngine;
+
 [CustomEditor(typeof(PermissiveObject))]
 public class PermissiveObjectEditor : Editor
 {
@@ -39,7 +40,6 @@ public class PermissiveObjectEditor : Editor
             return;
         }
 
-
         GUILayout.BeginHorizontal(MainHeader);
         GUILayout.FlexibleSpace();
         GUILayout.Label("PermissiveObject", MainHeader);
@@ -51,8 +51,7 @@ public class PermissiveObjectEditor : Editor
 
         EditorGUILayout.PropertyField(GameObjects);
         EditorGUILayout.PropertyField(Destructive);
-        if (!Destructive.boolValue)
-            EditorGUILayout.PropertyField(LoopCheck);
+        EditorGUILayout.PropertyField(LoopCheck);
 
         EditorGUILayout.PropertyField(Reverse);
         EditorGUILayout.PropertyField(AuthorizedPermissions, true);

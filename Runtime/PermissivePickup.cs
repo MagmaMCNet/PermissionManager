@@ -1,14 +1,15 @@
 ﻿using PermissionSystem;
 using UdonSharp;
 using UnityEngine;
+using VRC.SDK3.Components;
 
 [UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
-public class PermissiveObject : PermissionManagerRef
+public class PermissivePickup: PermissionManagerRef
 {
     [Space(5)]
-    [InspectorName("GameObjects")]
+    [InspectorName("Pickups")]
     [Tooltip("leave empty for self")]
-    public GameObject[] GameObjects;
+    public VRCPickup[] Items;
     [Tooltip("If the GameObject will get deleted")]
     public bool Destructive = false;
     [Tooltip("If It Will Check Every Time The ")]
@@ -19,8 +20,6 @@ public class PermissiveObject : PermissionManagerRef
     public string[] AuthorizedPermissions = new string[0];
     public override void OnAwake()
     {
-        if (GameObjects.Length == 0)
-            GameObjects = new GameObject[1] { gameObject };
         if (Destructive)
             LoopCheck = false;
         if (LoopCheck)
@@ -36,14 +35,14 @@ public class PermissiveObject : PermissionManagerRef
         {
             if (Permission)
             {
-                foreach (var obj in GameObjects)
+                foreach (var obj in Items)
                     Destroy(obj);
                 Destroy(this);
             }
         }
         else
-            foreach (var obj in GameObjects)
-                obj.SetActive(Permission);
+            foreach (var obj in Items)
+                obj.pickupable = Permission;
     }
 
     public override void OnDataUpdated()
@@ -51,8 +50,8 @@ public class PermissiveObject : PermissionManagerRef
         bool Permission = HasPermissions(AuthorizedPermissions);
         if (Reverse)
             Permission = !Permission;
-        foreach (var obj in GameObjects)
-            obj.SetActive(Permission);
+        foreach (var obj in Items)
+            obj.pickupable = Permission;
     }
 
 }

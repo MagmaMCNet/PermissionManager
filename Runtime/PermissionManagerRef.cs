@@ -1,9 +1,7 @@
 ﻿using System;
 using UdonSharp;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using VRC.SDKBase;
-using VRC.Udon;
 
 namespace PermissionSystem
 {
@@ -19,7 +17,10 @@ namespace PermissionSystem
             if (index == -1)
                 return false;
             string[] _Permissions = PermissionManager.Players_Permissions[index].Split('+');
-            return _Permissions.ContainsAny(Permissions);
+            foreach (string item in Permissions)
+                if (Array.IndexOf(_Permissions, item) != -1)
+                    return true;
+            return false;
         }
         public bool HasPermissions(VRCPlayerApi Player, params string[] Permissions) =>
             HasPermissions(Player.displayName, Permissions);

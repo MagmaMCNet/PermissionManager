@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
-  m_Name: PermissiveObject
+  m_Name: PermissivePickup
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 13fe766257734e14ca7a13be24351adc,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 6963be2e6ddd57445b79b43f3e3c096a,
     type: 2}
   udonAssembly: 
   assemblyError: 
-  sourceCsScript: {fileID: 11500000, guid: 643386e14125c2d44b020fcb06bdf3e0, type: 3}
+  sourceCsScript: {fileID: 11500000, guid: c0a71c4d3297f1645b67a8c821245824, type: 3}
   scriptVersion: 2
   compiledVersion: 2
   behaviourSyncMode: 2
   hasInteractEvent: 0
-  scriptID: 674519952958819264
+  scriptID: -2870201629635506420
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -170,19 +170,19 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: GameObjects
+      Data: Items
     - Name: $v
       Entry: 7
       Data: 10|UdonSharp.Compiler.FieldDefinition, UdonSharp.Editor
     - Name: <Name>k__BackingField
       Entry: 1
-      Data: GameObjects
+      Data: Items
     - Name: <UserType>k__BackingField
       Entry: 7
       Data: 11|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: UnityEngine.GameObject[], UnityEngine.CoreModule
+      Data: VRC.SDK3.Components.VRCPickup[], VRCSDK3
     - Name: 
       Entry: 8
       Data: 
@@ -221,7 +221,7 @@ MonoBehaviour:
       Data: 14|UnityEngine.InspectorNameAttribute, UnityEngine.CoreModule
     - Name: displayName
       Entry: 1
-      Data: GameObjects
+      Data: Pickups
     - Name: 
       Entry: 8
       Data: 

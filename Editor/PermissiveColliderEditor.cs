@@ -1,6 +1,7 @@
 using PermissionSystem;
 using UnityEditor;
 using UnityEngine;
+
 [CustomEditor(typeof(PermissiveCollider))]
 public class PermissiveColliderEditor : Editor
 {
@@ -40,7 +41,6 @@ public class PermissiveColliderEditor : Editor
             return;
         }
         
-
         GUILayout.BeginHorizontal(MainHeader);
         GUILayout.FlexibleSpace();
         GUILayout.Label("PermissiveCollider", MainHeader);
@@ -52,8 +52,7 @@ public class PermissiveColliderEditor : Editor
 
         EditorGUILayout.PropertyField(Colliders);
         EditorGUILayout.PropertyField(Destructive);
-        if (!Destructive.boolValue)
-            EditorGUILayout.PropertyField(LoopCheck);
+        EditorGUILayout.PropertyField(LoopCheck);
 
         EditorGUILayout.PropertyField(Reverse);
         EditorGUILayout.PropertyField(AuthorizedPermissions, true);
