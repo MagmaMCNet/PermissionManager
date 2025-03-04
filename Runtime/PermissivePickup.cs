@@ -3,7 +3,7 @@ using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.Components;
 
-[UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
+[UdonBehaviourSyncMode(BehaviourSyncMode.None)]
 public class PermissivePickup: PermissionManagerRef
 {
     [Space(5)]
@@ -28,30 +28,42 @@ public class PermissivePickup: PermissionManagerRef
 
     public override void OnReady()
     {
-        bool Permission = HasPermissions(AuthorizedPermissions);
+        perm = HasPermissions(AuthorizedPermissions);
         if (Reverse)
-            Permission = !Permission;
+            perm = !perm;
         if (Destructive)
         {
-            if (Permission)
+            if (perm)
             {
                 foreach (var obj in Items)
+                {
+                    if (obj == null)
+                        continue;
                     Destroy(obj);
-                Destroy(this);
+                }
             }
         }
         else
             foreach (var obj in Items)
-                obj.pickupable = Permission;
+            {
+                if (obj == null)
+                    continue;
+                obj.pickupable = perm;
+            }
+        UpdateObjects();
     }
-
+    bool perm = false;
     public override void OnDataUpdated()
     {
-        bool Permission = HasPermissions(AuthorizedPermissions);
+        perm = HasPermissions(AuthorizedPermissions);
         if (Reverse)
-            Permission = !Permission;
-        foreach (var obj in Items)
-            obj.pickupable = Permission;
+            perm = !perm;
     }
 
+    public void UpdateObjects()
+    {
+        foreach (var obj in Items)
+            obj.pickupable = perm;
+        SendCustomEventDelayedSeconds(nameof(UpdateObjects), 0.5f);
+    }
 }

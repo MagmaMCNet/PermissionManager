@@ -3,7 +3,7 @@ using UdonSharp;
 using UnityEngine;
 using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
-using VRC.Udon.Common.Interfaces;
+using VRC.Udon;
 
 namespace PermissionSystem
 {
@@ -11,25 +11,34 @@ namespace PermissionSystem
     {
         [Tooltip("Raw URL For Config It Is Recommended To Use GitHub.io To Host The Files")]
         [SerializeField] public VRCUrl DataUrl;
+        public UdonBehaviour UdonStringDownloader;
         [Tooltip("How Long It Will Wait To Send New Request To Download New Config From The Server")]
         [SerializeField] public byte DownloadDelay = 10;
         [Tooltip("Field for if the download will Start Again After Download Has Successfully Finished")]
         [SerializeField] public bool LoopDownload = true;
         [HideInInspector] public bool Ready = false;
 
-        public override void OnStringLoadSuccess(IVRCStringDownload result)
+        public void OnStringDownloadSuccess()
         {
             Ready = true;
-            OnStringDownloaded(result.Result);
+            OnStringDownloaded((string)UdonStringDownloader.GetProgramVariable("SavedData"));
             SendCustomEventDelayedSeconds(nameof(StartDownload), DownloadDelay);
         }
 
-        public override void OnStringLoadError(IVRCStringDownload result) => StartDownload();
+        public void OnStringDownloadError()
+        {
+            Debug.LogError($"Failed To Download`{DataUrl.Get()}`, Object: `{gameObject.name}`", this);
+
+        }
 
 
         public void Start()
         {
+            UdonStringDownloader.SetProgramVariable("SavedData", string.Empty);
+            UdonStringDownloader.SetProgramVariable("EventReceiver", this);
             OnAwake();
+            Debug.LogWarning($"Created And Loaded `IStringDownloader` Object: `{gameObject.name}`", this);
+            Debug.LogWarning($"Downloading Text: `{DataUrl.Get()}`", this);
             StartDownload();
             OnStart();
         }
@@ -48,12 +57,13 @@ namespace PermissionSystem
             Debug.Log(Data, this);
         }
 
-        public bool StartDownload()
+        public virtual bool StartDownload()
         {
             if (Ready && !LoopDownload)
                 return false;
 
-            VRCStringDownloader.LoadUrl(DataUrl, (IUdonEventReceiver)this);
+            UdonStringDownloader.SetProgramVariable("DataURL", DataUrl);
+            UdonStringDownloader.SendCustomEvent("DownloadString");
             return true;
         }
 
@@ -273,6 +283,19 @@ namespace PermissionSystem
             return false;
         }
 
+        public static T[] Remove<T>(this T[] array, T item)
+        {
+            int index = Array.IndexOf(array, item);
+            if (index == -1)
+            {
+                return array;
+            }
+
+            T[] newArray = new T[array.Length - 1];
+            Array.Copy(array, newArray, index);
+            Array.Copy(array, index + 1, newArray, index, newArray.Length - index);
+            return newArray;
+        }
         /// <summary>
         /// Removes an element at the specified index from the array.
         /// </summary>

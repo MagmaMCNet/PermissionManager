@@ -9,6 +9,8 @@ using UnityEditorInternal;
 public class PermissionManagerEditor : Editor
 {
     SerializedProperty DataURL;
+    SerializedProperty KeypadExtension;
+    SerializedProperty Logger;
 
     GUIStyle MainHeader;
     List<GameObject> GameObjects = new List<GameObject>();
@@ -18,8 +20,9 @@ public class PermissionManagerEditor : Editor
     {
 
         DataURL = serializedObject.FindProperty("DataUrl");
+        KeypadExtension = serializedObject.FindProperty("KeypadExtension");
+        Logger = serializedObject.FindProperty("Logger");
         GameObjects = GetAllObjectsInScene();
-
         GameObject gameObject = GameObjects.Find(x => x.GetComponent<PM>() != null);
 
         gameObject.GetComponent<PM>()._Editor_Self = gameObject;
@@ -79,12 +82,14 @@ public class PermissionManagerEditor : Editor
 #if MAGMAMC_PERMISSIONMANAGER
         GUILayout.BeginHorizontal(MainHeader);
         GUILayout.FlexibleSpace();
-        GUILayout.Label("PermissionManager - V1.1.0", MainHeader);
+        GUILayout.Label("PermissionManager - V2.0.0", MainHeader);
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         EditorGUILayout.Space(15);
 
         EditorGUILayout.PropertyField(DataURL);
+        EditorGUILayout.PropertyField(KeypadExtension);
+        EditorGUILayout.PropertyField(Logger);
 
         if (!issetup)
         {

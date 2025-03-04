@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -320,6 +320,228 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1522822334}
   m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
+--- !u!1001 &310685276
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -5007949112374311279, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: -5007949112374311279, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+    - target: {fileID: 37132945389205947, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 37132945725444280, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 37132945725444280, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 37132945725444280, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 693475069287088050, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 693475069287088050, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 693475069287088050, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3682445367341732825, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3682445367341732825, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689577, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_Name
+      value: UdonConsole
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689578, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: serializedProgramAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fe221cb682357d489caa2e07374c225,
+        type: 2}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718074138842689579, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089670596606847159, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867167394700450707, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867167394700450707, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867167394700450707, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867167394700450707, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867167394700450707, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867167394700450707, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831429830606566684, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831429831245493743, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831429831850341914, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831429832061125776, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VRC.Udon.UdonBehaviour, VRC.Udon
+      objectReference: {fileID: 0}
+    - target: {fileID: 7392648187983085985, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7392648187983085985, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938698670726978961, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938698670726978961, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938698670726978961, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599627832809752128, guid: 1dea3232580ce1b41bf846ab811d57e6,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1dea3232580ce1b41bf846ab811d57e6, type: 3}
+--- !u!114 &310685277 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -5007949112374311279, guid: 1dea3232580ce1b41bf846ab811d57e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 310685276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012e2595e4f197f4eabebc79c75baac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &995857124
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,8 +579,8 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 0
-  _syncMethod: 2
-  serializedProgramAsset: {fileID: 11400000, guid: 2e01ba3afcfad964d8e274ada9d11db2,
+  _syncMethod: 1
+  serializedProgramAsset: {fileID: 11400000, guid: e264607aa1551a3499dd3a90143a9d8f,
     type: 2}
   programSource: {fileID: 11400000, guid: a87eeb1e3a9c74d409ffaf3923691397, type: 2}
   serializedPublicVariablesBytesString: Ai8AAAAAATIAAABWAFIAQwAuAFUAZABvAG4ALgBDAG8AbQBtAG8AbgAuAFUAZABvAG4AVgBhAHIAaQBhAGIAbABlAFQAYQBiAGwAZQAsACAAVgBSAEMALgBVAGQAbwBuAC4AQwBvAG0AbQBvAG4AAAAAAAYBAAAAAAAAACcBBAAAAHQAeQBwAGUAAWgAAABTAHkAcwB0AGUAbQAuAEMAbwBsAGwAZQBjAHQAaQBvAG4AcwAuAEcAZQBuAGUAcgBpAGMALgBMAGkAcwB0AGAAMQBbAFsAVgBSAEMALgBVAGQAbwBuAC4AQwBvAG0AbQBvAG4ALgBJAG4AdABlAHIAZgBhAGMAZQBzAC4ASQBVAGQAbwBuAFYAYQByAGkAYQBiAGwAZQAsACAAVgBSAEMALgBVAGQAbwBuAC4AQwBvAG0AbQBvAG4AXQBdACwAIABtAHMAYwBvAHIAbABpAGIAAQEJAAAAVgBhAHIAaQBhAGIAbABlAHMALwEAAAABaAAAAFMAeQBzAHQAZQBtAC4AQwBvAGwAbABlAGMAdABpAG8AbgBzAC4ARwBlAG4AZQByAGkAYwAuAEwAaQBzAHQAYAAxAFsAWwBWAFIAQwAuAFUAZABvAG4ALgBDAG8AbQBtAG8AbgAuAEkAbgB0AGUAcgBmAGEAYwBlAHMALgBJAFUAZABvAG4AVgBhAHIAaQBhAGIAbABlACwAIABWAFIAQwAuAFUAZABvAG4ALgBDAG8AbQBtAG8AbgBdAF0ALAAgAG0AcwBjAG8AcgBsAGkAYgABAAAABgEAAAAAAAAAAi8CAAAAAUkAAABWAFIAQwAuAFUAZABvAG4ALgBDAG8AbQBtAG8AbgAuAFUAZABvAG4AVgBhAHIAaQBhAGIAbABlAGAAMQBbAFsAUwB5AHMAdABlAG0ALgBJAG4AdAAzADIALAAgAG0AcwBjAG8AcgBsAGkAYgBdAF0ALAAgAFYAUgBDAC4AVQBkAG8AbgAuAEMAbwBtAG0AbwBuAAIAAAAGAgAAAAAAAAAnAQQAAAB0AHkAcABlAAEXAAAAUwB5AHMAdABlAG0ALgBTAHQAcgBpAG4AZwAsACAAbQBzAGMAbwByAGwAaQBiACcBCgAAAFMAeQBtAGIAbwBsAE4AYQBtAGUAAR8AAABfAF8AXwBVAGQAbwBuAFMAaABhAHIAcABCAGUAaABhAHYAaQBvAHUAcgBWAGUAcgBzAGkAbwBuAF8AXwBfACcBBAAAAHQAeQBwAGUAARYAAABTAHkAcwB0AGUAbQAuAEkAbgB0ADMAMgAsACAAbQBzAGMAbwByAGwAaQBiABcBBQAAAFYAYQBsAHUAZQACAAAABwUHBQcF
@@ -386,17 +608,19 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 995857125}
+  KeypadExtension: 0
+  Logger: {fileID: 310685277}
   DataUrl:
     url: https://magmamcnet.github.io/MDH/Permissions.PSC
-  DownloadDelay: 10
-  LoopDownload: 1
-  Ready: 0
   Players: []
   Players_Permissions: []
   Groups: []
   Groups_Permissions: []
   _Editor_Self: {fileID: 995857124}
   Events: []
+  RawData: 
+  Authorized: 0
+  Ready: 0
 --- !u!4 &995857127
 Transform:
   m_ObjectHideFlags: 0
@@ -559,7 +783,7 @@ MonoBehaviour:
   spawnOrder: 2
   spawnOrientation: 0
   ReferenceCamera: {fileID: 291402702}
-  RespawnHeightY: -10
+  RespawnHeightY: -5
   ObjectBehaviourAtRespawnHeight: 0
   ForbidUserPortals: 0
   interactThruLayers: 0
@@ -573,6 +797,7 @@ MonoBehaviour:
   contentOther: 0
   releasePublic: 0
   unityVersion: 
+  udonProducts: []
   Name: 
   NSFW: 0
   SpawnPosition: {x: 0, y: 0, z: 0}
@@ -636,6 +861,8 @@ MonoBehaviour:
   NetworkIDs: []
   portraitCameraPositionOffset: {x: 0, y: 0, z: 0}
   portraitCameraRotationOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  PlayerPersistence: []
+  NavigationAreas: []
 --- !u!4 &1522822334
 Transform:
   m_ObjectHideFlags: 0
@@ -660,3 +887,4 @@ SceneRoots:
   - {fileID: 1522822334}
   - {fileID: 995857127}
   - {fileID: 272794577}
+  - {fileID: 310685276}

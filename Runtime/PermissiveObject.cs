@@ -2,7 +2,7 @@
 using UdonSharp;
 using UnityEngine;
 
-[UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
+[UdonBehaviourSyncMode(BehaviourSyncMode.None)]
 public class PermissiveObject : PermissionManagerRef
 {
     [Space(5)]
@@ -46,13 +46,6 @@ public class PermissiveObject : PermissionManagerRef
                 obj.SetActive(Permission);
     }
 
-    public override void OnDataUpdated()
-    {
-        bool Permission = HasPermissions(AuthorizedPermissions);
-        if (Reverse)
-            Permission = !Permission;
-        foreach (var obj in GameObjects)
-            obj.SetActive(Permission);
-    }
+    public override void OnDataUpdated() => OnReady();
 
 }

@@ -25,3 +25,5 @@
 5. On The GameObject You Have Created Click `Setup`
 
 ![5](~Guide/5.png)
+
+> Samples can be found in the Package Folder In Samples/

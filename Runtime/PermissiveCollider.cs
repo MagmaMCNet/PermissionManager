@@ -2,7 +2,7 @@
 using UdonSharp;
 using UnityEngine;
 
-[UdonBehaviourSyncMode(BehaviourSyncMode.NoVariableSync)]
+[UdonBehaviourSyncMode(BehaviourSyncMode.None)]
 public class PermissiveCollider: PermissionManagerRef
 {
     [Space(5)]
