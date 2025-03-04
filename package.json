@@ -15,7 +15,7 @@
   },
   "vpmDependencies": {
     "com.vrchat.worlds": ">=3.5.0 <4.0.0",
-    "com.varneon.vudon.editors": "^0.4.0-alpha.5"
+    "com.varneon.vudon.logger": ">=0.4.0-alpha.5 <0.5.0"
   },
   "samples": [],
   "legacyFolders": {}
